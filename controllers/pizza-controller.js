@@ -47,7 +47,7 @@ const pizzaController = {
 
     // update pizza by id
     updatePizza({ params, body }, res) {
-        Pizza.findOneAndUpdate({ _id: params.id }, body, { new: true })
+        Pizza.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
             .then(dbPizzaData => {
                 if (!dbPizzaData) {
                     res.status(404).json({ message: 'No pizza found with this id!' });
@@ -57,7 +57,7 @@ const pizzaController = {
             })
             .catch(err => res.status(400).json(err));
     },
-
+    
     // delete pizza
     deletePizza({ params }, res) {
         Pizza.findOneAndDelete({ _id: params.id })
